@@ -191,7 +191,7 @@ function createWarningPopup() {
           </div>
         </div>
         <div class="fun-limitator-button-container">
-          <button id="cancel-btn" class="fun-limitator-button fun-limitator-cancel-btn">Non, retourner à l'accueil</button>
+          <button id="cancel-btn" class="fun-limitator-button fun-limitator-cancel-btn">Non, retour en arrière</button>
           <button id="continue-btn" class="fun-limitator-button fun-limitator-continue-btn" disabled>Oui, je continue (10s)</button>
         </div>
       </div>
@@ -317,8 +317,18 @@ function attachEventListeners() {
   const continueBtn = document.getElementById('continue-btn');
   
   cancelBtn.addEventListener('click', () => {
-    // Rediriger vers une nouvelle page vide
-    window.location.href = 'about:blank';
+    // Retourner à la page précédente ou fermer l'onglet si pas d'historique
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      // Si pas d'historique, fermer l'onglet ou aller à une page d'accueil
+      window.close();
+      // Si window.close() ne fonctionne pas (onglet non ouvert par script), 
+      // fallback vers la page d'accueil du navigateur
+      setTimeout(() => {
+        window.location.href = 'chrome://newtab/';
+      }, 100);
+    }
   });
   
   continueBtn.addEventListener('click', () => {
