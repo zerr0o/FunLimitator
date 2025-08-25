@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Fun Limitator",
+  "version": "1.0",
+  "description": "Bloque les sites de distraction avec une popup d'avertissement",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["popup.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "options_page": "options.html"
+}
