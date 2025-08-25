@@ -1,11 +1,14 @@
 # Fun Limitator 🚫⚠️
 
-Une extension Chrome qui t'aide à éviter de gaspiller ton temps sur les sites de distraction en affichant une popup d'avertissement bloquante.
+Une extension Chrome qui t'aide à éviter de gaspiller ton temps sur les sites de distraction en affichant une popup d'avertissement bloquante avec gestion intelligente des plages horaires.
 
 ## 🌟 Fonctionnalités
 
 - **Popup bloquante plein écran** avec design moderne et sombre
 - **Timeout de 10 secondes** avant de pouvoir continuer
+- **⏰ Plages horaires personnalisables** - Extension active seulement pendant les heures de travail
+- **🔇 Mute automatique** des médias pendant la popup (YouTube, etc.)
+- **📱 Session par onglet** - Popup unique jusqu'à fermeture de l'onglet
 - **Gestion personnalisable des sites** via la page d'options
 - **Système d'exclusions** (ex: bloquer Facebook mais pas Facebook Messages)
 - **Interface moderne** avec thème sombre et animations
@@ -18,28 +21,53 @@ Une extension Chrome qui t'aide à éviter de gaspiller ton temps sur les sites 
 
 ## 📦 Installation
 
-### Installation en mode développeur
+### 🚀 Méthode 1 : Installation directe (Recommandée)
 
-1. **Télécharge** ou clone ce projet sur ton ordinateur
+1. **Télécharge la release** : Va sur [Releases](https://github.com/zerr0o/FunLimitator/releases) et télécharge `fun-limitator-v3.0.zip`
 
-2. **Ouvre Chrome** et va dans les paramètres d'extensions :
+2. **Extrait le fichier ZIP** dans un dossier de ton choix
+
+3. **Ouvre Chrome** et va dans les paramètres d'extensions :
    - Tape `chrome://extensions/` dans la barre d'adresse
    - Ou va dans Menu → Plus d'outils → Extensions
 
-3. **Active le mode développeur** (toggle en haut à droite)
+4. **Active le mode développeur** (toggle en haut à droite)
 
-4. **Clique sur "Charger l'extension non empaquetée"**
+5. **Clique sur "Charger l'extension non empaquetée"**
 
-5. **Sélectionne le dossier** `FunLimitator` qui contient tous les fichiers
+6. **Sélectionne le dossier extrait** qui contient les fichiers de l'extension
 
-6. **L'extension est maintenant installée** ! Tu verras l'icône dans la barre d'outils
+7. **L'extension est maintenant installée** ! Tu verras l'icône dans la barre d'outils
+
+### 🛠️ Méthode 2 : Depuis le code source
+
+1. **Clone le repository** :
+   ```bash
+   git clone https://github.com/zerr0o/FunLimitator.git
+   cd FunLimitator
+   ```
+
+2. **Suis les étapes 3-7** de la méthode 1 ci-dessus
 
 ## ⚙️ Configuration
 
 1. **Clique droit** sur l'icône de l'extension dans la barre d'outils
 2. **Sélectionne "Options"** ou va dans `chrome://extensions/` et clique sur "Options"
+
+### ⏰ Configuration des plages horaires
+
+1. **Section "Heures de fonctionnement"** :
+   - ✅ **Active le toggle** si tu veux limiter l'extension à certaines heures
+   - ⏰ **Configure l'heure de début** (ex: 09:00)
+   - 🏁 **Configure l'heure de fin** (ex: 18:00)
+   - 🌙 **Support des plages nocturnes** : Ex: 22:00 → 06:00 (traverse minuit)
+
+2. **Aperçu en temps réel** de ta configuration
+
+### 🚫 Gestion des sites bloqués
+
 3. **Ajoute/supprime/modifie** les sites que tu veux bloquer
-4. **Sauvegarde** tes modifications
+4. **💾 Sauvegarde** tes modifications
 
 ### Format des sites
 
@@ -49,11 +77,19 @@ Une extension Chrome qui t'aide à éviter de gaspiller ton temps sur les sites 
 
 ## 🎯 Comment ça marche
 
-1. **Quand tu visites un site bloqué**, une popup pleine page s'affiche
-2. **Tu as deux choix** :
+### 🔍 Détection intelligente
+1. **Vérification de l'heure** : Si les plages horaires sont activées, vérifie si on est dans la période active
+2. **Détection de site** : Quand tu visites un site bloqué pendant les heures actives
+3. **Session unique** : Une seule popup par onglet jusqu'à sa fermeture
+
+### 🚨 Popup d'avertissement
+1. **Popup pleine page** s'affiche avec design moderne
+2. **🔇 Mute automatique** : Tous les médias (vidéos, audio) sont instantanément coupés
+3. **Tu as deux choix** :
    - **"Non, retourner à l'accueil"** → Retourne à une page vide
    - **"Oui, je continue"** → Continue sur le site (disponible après 10s)
-3. **Le bouton "Oui" est désactivé pendant 10 secondes** pour te forcer à réfléchir
+4. **Compte à rebours de 10 secondes** pour te forcer à réfléchir
+5. **Restauration automatique** : Après validation, le son et les médias reprennent normalement
 
 ## 🔧 Structure des fichiers
 
