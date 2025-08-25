@@ -344,6 +344,26 @@ function removePopup() {
   }
 }
 
+// Vérifier si nous sommes dans la plage horaire active
+function isWithinSchedule(schedule) {
+  if (!schedule || !schedule.enabled) {
+    return true; // Pas de restriction horaire
+  }
+  
+  const now = new Date();
+  const currentTime = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+  
+  const startTime = schedule.startTime;
+  const endTime = schedule.endTime;
+  
+  // Gérer le cas où la plage traverse minuit (ex: 22:00 à 06:00)
+  if (startTime > endTime) {
+    return currentTime >= startTime || currentTime <= endTime;
+  } else {
+    return currentTime >= startTime && currentTime <= endTime;
+  }
+}
+
 // Initialisation
 async function init() {
   const currentUrl = window.location.href;
@@ -354,16 +374,22 @@ async function init() {
   }
   
   try {
-    // Récupérer les sites bloqués depuis le storage ou utiliser les sites par défaut
-    const result = await chrome.storage.sync.get(['blockedSites']);
+    // Récupérer les sites bloqués et la configuration horaire depuis le storage
+    const result = await chrome.storage.sync.get(['blockedSites', 'schedule']);
     const blockedSites = result.blockedSites || DEFAULT_BLOCKED_SITES;
+    const schedule = result.schedule || { enabled: false };
+    
+    // Vérifier si nous sommes dans la plage horaire
+    if (!isWithinSchedule(schedule)) {
+      return; // Extension inactive en dehors de la plage horaire
+    }
     
     if (shouldBlockSite(currentUrl, blockedSites)) {
       createWarningPopup();
     }
   } catch (error) {
-    console.log('Erreur lors du chargement des sites bloqués:', error);
-    // Utiliser les sites par défaut en cas d'erreur
+    console.log('Erreur lors du chargement de la configuration:', error);
+    // Utiliser les sites par défaut en cas d'erreur (pas de restriction horaire)
     if (shouldBlockSite(currentUrl, DEFAULT_BLOCKED_SITES)) {
       createWarningPopup();
     }

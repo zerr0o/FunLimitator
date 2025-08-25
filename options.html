@@ -14,8 +14,37 @@
         </header>
 
         <main>
+            <section class="schedule-section">
+                <h2>⏰ Heures de fonctionnement</h2>
+                <p class="section-description">L'extension ne sera active que pendant cette plage horaire</p>
+                
+                <div class="schedule-form">
+                    <div class="schedule-toggle">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="schedule-enabled">
+                            <span class="slider"></span>
+                        </label>
+                        <label for="schedule-enabled" class="toggle-label">Activer la plage horaire</label>
+                    </div>
+                    
+                    <div id="schedule-inputs" class="schedule-inputs disabled">
+                        <div class="form-group time-group">
+                            <label for="start-time">Heure de début:</label>
+                            <input type="time" id="start-time" value="09:00">
+                        </div>
+                        <div class="form-group time-group">
+                            <label for="end-time">Heure de fin:</label>
+                            <input type="time" id="end-time" value="18:00">
+                        </div>
+                        <div class="schedule-preview">
+                            <span id="schedule-preview-text">Extension active de 09:00 à 18:00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <section class="sites-section">
-                <h2>Sites bloqués</h2>
+                <h2>🚫 Sites bloqués</h2>
                 <div id="sites-list" class="sites-list">
                     <!-- Les sites seront ajoutés dynamiquement -->
                 </div>
